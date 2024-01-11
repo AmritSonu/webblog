@@ -1,6 +1,6 @@
 // controllers/blogPostController.js
 import { BlogPost } from "./../models/blogPost.js";
-
+import { Comment } from "../models/comment.js";
 // Create a new blog post
 export const createBlogPost = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ export const getBlogPostById = async (req, res) => {
   try {
     const blogPost = await BlogPost.findById(req.params.id)
       .populate("author")
-      .populate("comments.user");
+      .populate("allComments.comments");
     if (!blogPost) {
       return res.status(404).json({ message: "Blog post not found" });
     }
@@ -27,4 +27,76 @@ export const getBlogPostById = async (req, res) => {
   }
 };
 
-// Add more CRUD operations as needed (update, delete, get all, etc.)
+// Update blog post by ID
+export const updateBlogPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateblogPost = await BlogPost.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.json({
+      status: 200,
+      message: "Success",
+      updateblogPost,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+// Delete a specific comment by its ID
+export const deleteBlogPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Find the associated blog post
+    const blogPost = await BlogPost.findById(id);
+    if (!blogPost) {
+      return res.status(404).json({ message: "This Blog Post not found" });
+    }
+    // Get all comment IDs associated with the blog post
+    const commentIds = blogPost.allComments.map((id) => id.comments);
+    // Remove the blog post
+    await BlogPost.findByIdAndDelete(id);
+    console.log("This is comment ids:", commentIds);
+
+    // Delete associated comments using their IDs
+    if (commentIds) {
+      for (const commentId of commentIds) {
+        await Comment.findByIdAndDelete(commentId);
+      }
+    }
+    res.status(200).json({
+      status: "success",
+      message: "BlogPost or associated comments deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "Failed to delete blog post",
+      message: error.message,
+    });
+  }
+};
+
+// Get All Blog Posts
+export const getAllBlogPosts = async (req, res) => {
+  try {
+    const blogPosts = await BlogPost.find({});
+    if (!blogPosts || blogPosts.length === 0) {
+      return res.status(404).json({ message: "No Blog Posts in DataBase!" });
+    }
+    res.json({
+      status: 200,
+      message: "All Blog Posts are found.",
+      totalBlogPosts: blogPosts.length,
+      blogPosts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};

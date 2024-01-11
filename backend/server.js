@@ -1,6 +1,7 @@
 import express from "express";
-import { userRouters } from "./Routes/userRouters.js"; // Rename to userRouter
-import { blogPostRouter } from "./Routes/blogPostRoutes.js"; // Rename to blogPostRouter
+import { userRouters } from "./Routes/userRouters.js"; 
+import { blogPostRouter } from "./Routes/blogPostRoutes.js";
+import { commentRouters } from "./Routes/commentRoutes.js";
 import { connectDB } from "./db.js";
 import dotenv from "dotenv";
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // ROUTE MOUNTING
 app.use("/users", userRouters); // Use userRouter for /users path
 app.use("/blogposts", blogPostRouter); // Use blogPostRouter for /blogposts path
+app.use("/comments", commentRouters);
 
 // CONNECT TO DATABASE
 connectDB();
