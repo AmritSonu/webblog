@@ -1,5 +1,5 @@
 import express from "express";
-import { userRouters } from "./Routes/userRouters.js"; 
+import { userRouters } from "./Routes/userRouters.js";
 import { blogPostRouter } from "./Routes/blogPostRoutes.js";
 import { commentRouters } from "./Routes/commentRoutes.js";
 import { connectDB } from "./db.js";

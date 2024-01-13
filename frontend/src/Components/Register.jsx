@@ -10,7 +10,7 @@ export function Register() {
             <input
               placeholder="First Name"
               className=" border-2 rounded-md p-2 w-1/2 focus:outline-none"
-              type="text"focus:outline-none
+              type="text"
             />
             <input
               placeholder="Last Name"

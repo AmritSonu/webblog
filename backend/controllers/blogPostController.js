@@ -79,6 +79,22 @@ export const deleteBlogPostById = async (req, res) => {
     });
   }
 };
+export const getBlogPostByCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const selectedBlogPost = await BlogPost.find({ category: id });
+    res.json({
+      status: "Fetched All Categorized Posts!",
+      totalPosts: selectedBlogPost.length,
+      selectedBlogPost,
+    });
+  } catch (err) {
+    res.json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
 
 // Get All Blog Posts
 export const getAllBlogPosts = async (req, res) => {

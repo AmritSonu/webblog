@@ -26,14 +26,19 @@ export const createComment = async (req, res) => {
   }
 };
 
-// Get all comments for a specific blog post
+// Get all comments for a specific blog post (By blogPost ID)
 export const getCommentsByBlogPostId = async (req, res) => {
   try {
     const { blogPostId } = req.params;
     const comments = await Comment.find({ blogPost: blogPostId }).populate(
       "user"
     ); // Populate the user details
-
+    if (!comments) {
+      return res.status(404).json({
+        status: "404 Not Found",
+        message: "No comments found!",
+      });
+    }
     res.status(200).json({
       status: "success",
       comments,
@@ -52,7 +57,7 @@ export const updateComment = async (req, res) => {
     const updatedComment = await Comment.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-
+    
     res.status(200).json({
       status: "Comment is updated!",
       updatedComment,
