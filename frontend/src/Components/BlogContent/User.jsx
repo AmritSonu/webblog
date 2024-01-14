@@ -1,4 +1,9 @@
+// import { useLocation } from "react-router-dom";
+
 export function User() {
+  // const location = useLocation();
+  // const selectedBlog = location.state.selectedBlog;
+  // console.log(selectedBlog);
   const randomImageUrl = getRandomImageUrl(); // Assuming you have this function defined elsewhere
 
   return (

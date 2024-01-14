@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import useBlog from "../contexts/useBlog";
+import { useNavigate } from "react-router-dom";
 
 // Short the Paragraph in frontPage...
 const truncateContent = (content, maxLength = 200) => {
@@ -7,10 +9,10 @@ const truncateContent = (content, maxLength = 200) => {
   }
   return content;
 };
+
 // Extract the date Content with readable encoding....
 function formatMongoDBDate(mongoDBDateString) {
   const dateObj = new Date(mongoDBDateString);
-
   // Extract components
   const year = dateObj.getFullYear();
   const month = dateObj.getMonth() + 1; // Months are zero-based (0 = January)
@@ -18,22 +20,36 @@ function formatMongoDBDate(mongoDBDateString) {
   const hours = dateObj.getHours();
   const minutes = dateObj.getMinutes();
   const period = hours >= 12 ? "PM" : "AM"; // Determine AM or PM
-
   // Convert 24-hour format to 12-hour format
   const formattedHours = hours % 12 || 12; // 0 should be converted to 12 for 12-hour format
   const formattedMinutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if minutes < 10
-
   // Construct and return the formatted date string
   return `${year}/${month}/${day} : ${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 export function BlogBox() {
   const { blogContent } = useBlog();
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (selectedBlog) {
+      navigate(`/blog/id?=${selectedBlog._id}`, {
+        state: { selectedBlog: selectedBlog },
+      });
+    }
+  }, [selectedBlog, navigate]);
+
+  function handleBlogClick(blog) {
+    setSelectedBlog(blog);
+  }
   return (
     <div>
       {blogContent.map((eachblogContent) => (
-        <div key={eachblogContent._id}>
+        <div
+          key={eachblogContent._id}
+          onClick={() => handleBlogClick(eachblogContent)}
+        >
           <div className="flex justify-center items-center font-semibold gap-5 bg-white m-1 hover:cursor-pointer relative ">
             <span className="absolute top-0 right-0 bg-mainColor-400 text-white p-1  font-thin">
               {eachblogContent.category}

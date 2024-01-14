@@ -15,9 +15,9 @@ const app = express();
 app.use(express.json());
 
 // ROUTE MOUNTING
-app.use("/users", userRouters); // Use userRouter for /users path
 app.use("/blogposts", blogPostRouter); // Use blogPostRouter for /blogposts path
-app.use("/comments", commentRouters);
+app.use("/blogposts/users", userRouters); // Use userRouter for /users path
+app.use("/blogposts/comments", commentRouters);
 
 // CONNECT TO DATABASE
 connectDB();
