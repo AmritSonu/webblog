@@ -17,10 +17,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="/blog/:id" element={<MainBlog />} />
-            <Route path="category/frontend" element={<UpdaterMainBox />} />
-            <Route path="category/backend" element={<UpdaterMainBox />} />
-            <Route path="category/database" element={<UpdaterMainBox />} />
-            <Route path="category/other" element={<UpdaterMainBox />} />
+            <Route path="category/:category" element={<UpdaterMainBox />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

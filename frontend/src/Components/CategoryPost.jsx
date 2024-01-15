@@ -7,12 +7,12 @@ export function CategoryPost() {
         className={({ isActive }) =>
           isActive ? "text-mainColor-400 font-bold" : "hover:cursor-pointer"
         }
-        to="/category/frontend"
+        to="/category/Frontend"
       >
         Frontend
       </NavLink>
       <NavLink
-        to="/category/backend"
+        to="/category/Backend"
         className={({ isActive }) =>
           isActive ? "text-mainColor-400 font-bold" : "hover:cursor-pointer"
         }
@@ -20,7 +20,7 @@ export function CategoryPost() {
         Backend
       </NavLink>
       <NavLink
-        to="/category/database"
+        to="/category/Database"
         className={({ isActive }) =>
           isActive ? "text-mainColor-400 font-bold" : "hover:cursor-pointer"
         }
@@ -28,7 +28,7 @@ export function CategoryPost() {
         Database
       </NavLink>
       <NavLink
-        to="/category/other"
+        to="/category/Other"
         className={({ isActive }) =>
           isActive ? "text-mainColor-400 font-bold" : "hover:cursor-pointer"
         }

@@ -1,33 +1,8 @@
 import { useEffect, useState } from "react";
-import useBlog from "../contexts/useBlog";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-// Short the Paragraph in frontPage...
-const truncateContent = (content, maxLength = 200) => {
-  if (content.length > maxLength) {
-    return content.substring(0, maxLength) + "...";
-  }
-  return content;
-};
-// Extract the date Content with readable encoding....
-function formatMongoDBDate(mongoDBDateString) {
-  const dateObj = new Date(mongoDBDateString);
-  // Extract components
-  const year = dateObj.getFullYear();
-  const month = dateObj.getMonth() + 1; // Months are zero-based (0 = January)
-  const day = dateObj.getDate();
-  const hours = dateObj.getHours();
-  const minutes = dateObj.getMinutes();
-  const period = hours >= 12 ? "PM" : "AM"; // Determine AM or PM
-  // Convert 24-hour format to 12-hour format
-  const formattedHours = hours % 12 || 12; // 0 should be converted to 12 for 12-hour format
-  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if minutes < 10
-  // Construct and return the formatted date string
-  return `${year}/${month}/${day} : ${formattedHours}:${formattedMinutes} ${period}`;
-}
-
-export function BlogBox() {
-  const { blogContent } = useBlog();
+export function BlogBox({ blogContent }) {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const navigate = useNavigate();
 
@@ -85,3 +60,31 @@ export function BlogBox() {
     </div>
   );
 }
+
+// Extract the date Content with readable encoding....
+function formatMongoDBDate(mongoDBDateString) {
+  const dateObj = new Date(mongoDBDateString);
+  // Extract components
+  const year = dateObj.getFullYear();
+  const month = dateObj.getMonth() + 1; // Months are zero-based (0 = January)
+  const day = dateObj.getDate();
+  const hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const period = hours >= 12 ? "PM" : "AM"; // Determine AM or PM
+  // Convert 24-hour format to 12-hour format
+  const formattedHours = hours % 12 || 12; // 0 should be converted to 12 for 12-hour format
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if minutes < 10
+  return `${year}/${month}/${day} : ${formattedHours}:${formattedMinutes} ${period}`;
+}
+
+// Short the Paragraph in frontPage...
+const truncateContent = (content, maxLength = 200) => {
+  if (content.length > maxLength) {
+    return content.substring(0, maxLength) + "...";
+  }
+  return content;
+};
+
+BlogBox.propTypes = {
+  blogContent: PropTypes.array.isRequired,
+};
