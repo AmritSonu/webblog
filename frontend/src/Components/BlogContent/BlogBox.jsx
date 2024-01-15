@@ -9,7 +9,6 @@ const truncateContent = (content, maxLength = 200) => {
   }
   return content;
 };
-
 // Extract the date Content with readable encoding....
 function formatMongoDBDate(mongoDBDateString) {
   const dateObj = new Date(mongoDBDateString);
@@ -34,7 +33,7 @@ export function BlogBox() {
 
   useEffect(() => {
     if (selectedBlog) {
-      navigate(`/blog/id?=${selectedBlog._id}`, {
+      navigate(`/blog/${selectedBlog._id}`, {
         state: { selectedBlog: selectedBlog },
       });
     }
@@ -67,12 +66,14 @@ export function BlogBox() {
                 <span className="text-sm">
                   {formatMongoDBDate(eachblogContent.date)}
                 </span>
-                <p className="text-sm">
-                  {eachblogContent.allComments.length === 0
-                    ? "No"
-                    : eachblogContent.allComments.length}{" "}
-                  <span>comments</span>
-                </p>
+                <div>
+                  <p className="text-xs inline-block bg-blue-100 rounded-lg p-1 font-semibold">
+                    {eachblogContent.allComments.length === 0
+                      ? "No"
+                      : eachblogContent.allComments.length}{" "}
+                    <span>comments</span>
+                  </p>
+                </div>
                 <p className="text-sm font-light">
                   {truncateContent(eachblogContent.content)}
                 </p>
