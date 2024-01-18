@@ -1,23 +1,21 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { BlogPost } from "../models/blogPost.js";
 import { User } from "../models/userModel.js";
 export const createUser = async (req, res) => {
   try {
     const user = new User(req.body);
-    if (
-      !user.firstname ||
-      !user.lastname ||
-      !user.email ||
-      !user.username ||
-      !user.password ||
-      !user.comfirmPassword
-    ) {
+
+    // Hash the password and save it to the user object
+    user.password = await bcrypt.hash(user.password, 10);
+    if (!user.firstname || !user.lastname || !user.email || !user.password) {
       res.json({
         status: 400,
         message: "Please enter All Required Fields!",
       });
     }
     const existingUser = await User.findOne({
-      $or: [{ email: req.body.email }, { username: req.body.username }],
+      email: req.body.email,
     });
     if (existingUser) {
       res.json({
@@ -41,7 +39,7 @@ export const createUser = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return res.json({
         status: 404,
@@ -91,4 +89,58 @@ export const getUserByBlogPost = async (req, res) => {
       message: error.message,
     });
   }
+};
+
+export const login = async (req, res) => {
+  // check if email exists
+  User.findOne({ email: req.body.email })
+
+    // if email exists
+    .then((user) => {
+      // compare the password entered and the hashed password found
+      bcrypt
+        .compare(req.body.password, user.password)
+
+        // if the passwords match
+        .then((passwordCheck) => {
+          // check if password matches
+          if (!passwordCheck) {
+            return res.status(400).send({
+              message: "Passwords does not match",
+              error,
+            });
+          }
+
+          //   create JWT token
+          const token = jwt.sign(
+            {
+              userId: user._id,
+              userEmail: user.email,
+            },
+            "RANDOM-TOKEN",
+            { expiresIn: "12h" }
+          );
+
+          //   return success response
+          res.status(200).send({
+            message: "Login Successful",
+            email: user.email,
+            token,
+          });
+        })
+        // catch error if password does not match
+        .catch((error) => {
+          res.status(400).send({
+            message: "Passwords does not match",
+            error,
+          });
+        });
+    })
+    // catch error if email does not exist
+    .catch((e) => {
+      res.status(404).send({
+        message: "Email not found",
+        e,
+      });
+    });
 };

@@ -18,6 +18,12 @@ export function Navbar() {
           >
             register
           </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "text-mainColor-400" : "")}
+            to="/auth"
+          >
+            auth
+          </NavLink>
         </div>
       </div>
     </>
