@@ -39,7 +39,7 @@ export function Navbar() {
           to="/login"
           className={({ isActive }) =>
             isActive
-              ? "font-semibold bg-blue-950 text-white rounded-lg p-1 pr-4 pl-4"
+              ? "font-semibold bg-mainColor-400 text-white rounded-lg p-1 pr-4 pl-4"
               : "font-bold bg-mainColor-400 text-white rounded-lg p-1 pr-4 pl-4"
           }
           onClick={handleLogout}

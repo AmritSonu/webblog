@@ -94,7 +94,7 @@ export function Login() {
           </div>
           <button
             type="submit"
-            className="bg-mainColor-400 w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
+            className="bg-mainColor-400 w-max m-auto px-6 py-2 rounded text-white text-sm font-normal hover:bg-mainLightcolor-300"
           >
             Submit
           </button>

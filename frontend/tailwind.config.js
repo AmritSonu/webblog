@@ -7,8 +7,8 @@ export default {
         mainColor: {
           400: "#F92F60",
         },
-        slatecolor: {
-          300: "#cbd5e1",
+        mainLightcolor: {
+          300: "#fa4470",
         },
       },
     },
