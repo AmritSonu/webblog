@@ -57,7 +57,7 @@ export const updateComment = async (req, res) => {
     const updatedComment = await Comment.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    
+
     res.status(200).json({
       status: "Comment is updated!",
       updatedComment,

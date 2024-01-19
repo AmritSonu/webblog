@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { BlogProvider } from "./Components/contexts/BlogContextAPI";
 import Layout from "./Layout";
-import { Auth } from "./Components/authorized/Auth";
+import { UserDashboard } from "./Components/authorized/UserDashboard";
 import { Login } from "./Components/Login";
 import { Register } from "./Components/Register";
 import { MainBlog } from "./Components/BlogContent/MainBlog";
@@ -19,8 +19,8 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route
-              path="/auth"
-              element={<ProtectedRoutes Component={Auth} />}
+              path="/dashboard"
+              element={<ProtectedRoutes Component={UserDashboard} />}
             />
             <Route path="/blog/:id" element={<MainBlog />} />
             <Route path="category/:category" element={<UpdaterMainBox />} />

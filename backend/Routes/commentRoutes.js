@@ -3,7 +3,7 @@ import express from "express";
 import {
   createComment,
   deleteComment,
-  getCommentsByBlogPostId,  
+  getCommentsByBlogPostId,
   updateComment,
 } from "../controllers/commentController.js";
 const commentRouters = express.Router();

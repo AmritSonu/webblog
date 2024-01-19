@@ -29,7 +29,7 @@ export function Login() {
           path: "/",
         });
         // redirect user to the auth page
-        window.location.href = "/auth";
+        window.location.href = "/dashboard";
       })
 
       .catch((err) => {

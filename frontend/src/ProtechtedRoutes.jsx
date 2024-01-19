@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { logout } from "./Components/authorized/authUtils";
-
 const cookies = new Cookies();
 
 function ProtectedRoutes(props) {
@@ -20,17 +18,9 @@ function ProtectedRoutes(props) {
     }
   }, [navigate]);
 
-  const handleLogout = () => {
-    // Call the logout function to clear authentication information
-    logout();
-
-    // Redirect to the login page after logout
-    navigate("/login");
-  };
   return (
     <div>
       {/* Display the logout button */}
-      <button onClick={handleLogout}>Logout</button>
       <Component />
     </div>
   );
