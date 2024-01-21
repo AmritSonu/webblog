@@ -6,26 +6,45 @@ export const BlogContext = createContext();
 
 export function BlogProvider({ children }) {
   const [blogContent, setBlogContent] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
 
+  // fetch data from server ...
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/blogposts");
+      setBlogContent(response.data.blogPosts);
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+    }
+  };
+
+  // // Function to store data in localStorage...
+  // const storeDataLocally = (data) => {
+  //   localStorage.setItem("blogContent", JSON.stringify(data));
+  // };
+
+  // // Function to retrieve data from localStorage..
+  // const retrieveDataLocally = () => {
+  //   const storedData = localStorage.getItem("blogContent");
+  //   return storedData ? JSON.parse(storedData) : [];
+  // };
+
+  // useEffect to fetch data from the server when the component mounts
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // setIsLoading(true);
-        const response = await axios.get("/blogposts");
-        setBlogContent(response.data.blogPosts);
-      } catch (error) {
-        console.error("Error fetching blog posts:", error);
-      }
-      // finally {
-      //   // setIsLoading(false);
-      // }
-    };
     fetchData();
-  }, []);
+  }, [setBlogContent]);
+
+  // // useEffect to store data in localStorage whenever blogContent changes
+  // useEffect(() => {
+  //   storeDataLocally(blogContent);
+  // }, [blogContent]);
 
   return (
-    <BlogContext.Provider value={{ blogContent, setBlogContent }}>
+    <BlogContext.Provider
+      value={{
+        blogContent,
+        setBlogContent,
+      }}
+    >
       {children}
     </BlogContext.Provider>
   );

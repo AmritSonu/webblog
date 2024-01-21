@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 export function CommentSection() {
   const [selectedBlog, setSelectedBlog] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
+
   console.log(isLoading);
   const { id } = useParams();
 
@@ -18,12 +20,18 @@ export function CommentSection() {
         console.error("Error fetching blog post:", error);
       }
     };
-    setTimeout(() => {
+    // Set isLoading to false after a 1-second delay only on initial load
+    if (initialLoad) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setInitialLoad(false); // Update initialLoad after the first load
+      }, 500);
+    } else {
       setIsLoading(false);
-    }, 2000);
+    }
 
     fetchData(); // Call the async function
-  }, [id]);
+  }, [id, initialLoad]);
 
   return (
     <div>

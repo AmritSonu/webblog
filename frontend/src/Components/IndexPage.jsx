@@ -8,6 +8,7 @@ export function IndexPage() {
   const { blogContent } = useBlog();
   const [filteredBlogContent, setFilteredBlogContent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,11 +21,17 @@ export function IndexPage() {
       );
       setFilteredBlogContent(filteredContent);
     }
-    // Set isLoading to false after a 1-second delay
-    setTimeout(() => {
+
+    // Set isLoading to false after a 1-second delay only on initial load
+    if (initialLoad) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setInitialLoad(false); // Update initialLoad after the first load
+      }, 500);
+    } else {
       setIsLoading(false);
-    }, 1000);
-  }, [category, blogContent]);
+    }
+  }, [category, blogContent, initialLoad]);
 
   return (
     <>

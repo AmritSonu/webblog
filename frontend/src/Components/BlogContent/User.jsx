@@ -5,6 +5,7 @@ import axios from "axios";
 export function User() {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
   const { id } = useParams();
   useEffect(() => {
     setIsLoading(true);
@@ -15,12 +16,16 @@ export function User() {
     } catch (err) {
       console.log("Error While Fetching User from server:", err);
     }
-    // Set isLoading to false after a 2-second delay
-    setTimeout(() => {
+    // Set isLoading to false after a 1-second delay only on initial load
+    if (initialLoad) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setInitialLoad(false); // Update initialLoad after the first load
+      }, 500);
+    } else {
       setIsLoading(false);
-    }, 2000);
-  }, [id]);
-  console.log(user);
+    }
+  }, [id, initialLoad]);
   const randomImageUrl = getRandomImageUrl();
 
   return (
