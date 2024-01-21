@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-
+import { Pagination } from "../Pagination/Pagination";
+let PageSize = 10;
 export function BlogBox({ blogContent }) {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const navigate = useNavigate();
-
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     if (selectedBlog) {
       navigate(`/blog/${selectedBlog._id}`, {
@@ -17,9 +18,16 @@ export function BlogBox({ blogContent }) {
   function handleBlogClick(blog) {
     setSelectedBlog(blog);
   }
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return blogContent.slice(firstPageIndex, lastPageIndex);
+  }, [blogContent, currentPage]);
+
   return (
     <div>
-      {blogContent.map((eachblogContent) => (
+      {currentTableData.map((eachblogContent) => (
         <div
           key={eachblogContent._id}
           onClick={() => handleBlogClick(eachblogContent)}
@@ -57,6 +65,13 @@ export function BlogBox({ blogContent }) {
           </div>
         </div>
       ))}
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={blogContent.length}
+        pageSize={PageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 }
