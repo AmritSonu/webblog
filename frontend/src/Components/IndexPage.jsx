@@ -8,7 +8,7 @@ export function IndexPage() {
   const { blogContent } = useBlog();
   const [filteredBlogContent, setFilteredBlogContent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [initialLoad, setInitialLoad] = useState(true);
+  // const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,15 +23,11 @@ export function IndexPage() {
     }
 
     // Set isLoading to false after a 1-second delay only on initial load
-    if (initialLoad) {
-      setTimeout(() => {
-        setIsLoading(false);
-        setInitialLoad(false); // Update initialLoad after the first load
-      }, 500);
-    } else {
+
+    setTimeout(() => {
       setIsLoading(false);
-    }
-  }, [category, blogContent, initialLoad]);
+    }, 500);
+  }, [category, blogContent]);
 
   return (
     <>
@@ -42,25 +38,32 @@ export function IndexPage() {
               key={index}
               className="border p-4 mb-4 hover:cursor-pointer relative animate-pulse"
             >
-              <div className="absolute top-0 right-0 bg-gray-300 text-white p-1 font-thin h-4 w-16"></div>
-              <div className="flex items-center">
-                <div className="w-2/6 h-24 bg-gray-300 mr-4"></div>
-                <div>
-                  <h1 className="text-sm mb-2 h-4 bg-gray-300"></h1>
-                  <div>
-                    <span className="text-sm">
-                      <span className="h-4 w-20 bg-gray-300 inline-block mr-2"></span>
-                      <span className="h-4 w-20 bg-gray-300 inline-block"></span>
-                    </span>
-                  </div>
-                  <p className="text-sm font-light h-16 bg-gray-300 mt-2"></p>
-                </div>
-              </div>
+              <LoadingPlaceholder />
             </div>
           ))
         ) : (
           <BlogBox blogContent={filteredBlogContent} />
         )}
+      </div>
+    </>
+  );
+}
+function LoadingPlaceholder() {
+  return (
+    <>
+      <div className="absolute top-0 right-0 bg-gray-300 text-white p-1 font-thin h-4 w-16"></div>
+      <div className="flex items-center">
+        <div className="w-2/6 h-24 bg-gray-300 mr-4"></div>
+        <div>
+          <h1 className="text-sm mb-2 h-4 bg-gray-300"></h1>
+          <div>
+            <span className="text-sm">
+              <span className="h-4 w-20 bg-gray-300 inline-block mr-2"></span>
+              <span className="h-4 w-20 bg-gray-300 inline-block"></span>
+            </span>
+          </div>
+          <p className="text-sm font-light h-16 bg-gray-300 mt-2"></p>
+        </div>
       </div>
     </>
   );

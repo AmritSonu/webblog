@@ -37,11 +37,19 @@ export function BlogBox({ blogContent }) {
               {eachblogContent.category}
             </span>
             <div className="w-2/6">
-              <img
-                className="object-cover border-xl"
-                src="https://source.unsplash.com/random/?Frontend/"
-                alt="blog_pic"
-              />
+              {eachblogContent.imageUrl ? (
+                <img
+                  className="object-cover border-xl"
+                  src={eachblogContent.imageUrl}
+                  alt="blog_pic"
+                />
+              ) : (
+                <img
+                  className="object-cover border-xl"
+                  src="/No_image.jpg"
+                  alt="blog_pic"
+                />
+              )}
             </div>
             <div>
               <h1 className="text-sm">{eachblogContent.title}</h1>

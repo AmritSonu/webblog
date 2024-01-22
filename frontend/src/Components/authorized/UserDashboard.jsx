@@ -1,6 +1,8 @@
 // UserDashboard.js
 // import axios from "axios";
 
+import { NavLink } from "react-router-dom";
+
 const UserDashboard = () => {
   return (
     <div className="container mx-auto flex">
@@ -39,12 +41,12 @@ const UserDashboard = () => {
 
           <h1 className="font-serif text-2xl">Blog List</h1>
           <span className="font-bold">3 blogs</span>
-          <button
-            className="bg-mainLightcolor-300 text-white w-24 font-bold rounded-sm m-1 mt-5 p-1"
-            type="button"
+          <NavLink
+            className="bg-mainLightcolor-300 text-white w-24 font-bold rounded-sm m-1 mt-5 p-1 pl-3"
+            to="/dashboard/writeBlogPost"
           >
             Add New
-          </button>
+          </NavLink>
           <div className="shadow-sm">
             <ul className="flex justify-center p-1 gap-28  font-mono bg-gray-800 text-white">
               <li>Title</li>

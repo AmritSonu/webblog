@@ -20,6 +20,10 @@ const blogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  imageUrl: {
+    type: String,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,
