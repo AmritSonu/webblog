@@ -1,17 +1,31 @@
-// WriteBlogPostForm.js
-
 import { useState } from "react";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const WriteBlogPost = () => {
+const EditBlogPost = () => {
+  const location = useLocation();
+  const { _id } = location.state;
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Title:", title);
-    console.log("Content:", content);
-    // Add more logic as needed
+    const updateEndpoint = `/blogposts/${_id}`;
+    const updatedData = {
+      title,
+      category: "Backend",
+      content,
+    };
+    axios
+      .put(updateEndpoint, updatedData)
+      .then((response) => {
+        console.log("Blog post updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating blog post:", error);
+      });
+    navigate(-1);
   };
 
   return (
@@ -66,4 +80,4 @@ const WriteBlogPost = () => {
   );
 };
 
-export { WriteBlogPost };
+export { EditBlogPost };

@@ -1,29 +1,45 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 function BlogListUserData() {
+  const navigate = useNavigate();
   const [blogData, setBlogData] = useState([]);
   const token = cookies.get("TOKEN");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Make an Axios request with the token in the headers
-        const response = await axios.get("blogposts/user/blogs", {
+        const response = await axios.get("/blogposts/user/blogs", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        // Handle the response
         setBlogData(response.data.userBlogs);
       } catch (error) {
-        // Handle errors
         console.error("Error:", error);
       }
     };
     fetchData();
-  }, [token]);
+  }, [token, blogData]);
+
+  const handleEditBtn = (_id) => {
+    navigate(`/dashboard/editBlogPost?id=${_id}`, { state: { _id } });
+  };
+
+  function handleDltBtn(_id) {
+    const deleteEndpoint = `/blogposts/${_id}`;
+    axios
+      .delete(deleteEndpoint)
+      .then((response) => {
+        console.log("Blog post deleted successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error deleting blog post:", error);
+      });
+  }
+
   return (
     <>
       {blogData
@@ -32,7 +48,10 @@ function BlogListUserData() {
               <li>{blogInfo.title}</li>
               <li>{blogInfo.category}</li>
               <li>{blogInfo.date}</li>
-              <li className="hover:cursor-pointer">
+              <li
+                className="hover:cursor-pointer"
+                onClick={() => handleEditBtn(blogInfo._id)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -43,7 +62,10 @@ function BlogListUserData() {
                   <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                 </svg>
               </li>
-              <li className="hover:cursor-pointer">
+              <li
+                className="hover:cursor-pointer"
+                onClick={() => handleDltBtn(blogInfo._id)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"

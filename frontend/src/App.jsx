@@ -8,7 +8,7 @@ import { MainBlog } from "./Components/BlogContent/MainBlog";
 import { UpdaterMainBox } from "./Components/UpdaterMainBox";
 import { ProtectedRoutes } from "./ProtechtedRoutes";
 import { NotFound } from "./Components/NotFound";
-import { WriteBlogPost } from "./Components/BlogContent/WriteBlogPost";
+import { EditBlogPost } from "./Components/BlogContent/EditBlogPost";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               path="dashboard"
               element={<ProtectedRoutes Component={UserDashboard} />}
             />
-            <Route path="dashboard/writeBlogPost" element={<WriteBlogPost />} />
+            <Route path="dashboard/editBlogPost" element={<EditBlogPost />} />
 
             <Route path="/blog/:id" element={<MainBlog />} />
             <Route path="category/:category" element={<UpdaterMainBox />} />
