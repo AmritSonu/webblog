@@ -119,8 +119,8 @@ export const getAllBlogPosts = async (req, res) => {
 export const blogsBylogin = async (req, res) => {
   try {
     // Assuming you have user information stored in req.user after authentication
-    // const userId = req.user._id;
-    const { userId } = req.params;
+    const { userId } = req.user;
+    // const { userId } = req.params;
 
     // Find all blog posts where the author field matches the logged-in user's ID
     const userBlogs = await BlogPost.find({ author: userId });

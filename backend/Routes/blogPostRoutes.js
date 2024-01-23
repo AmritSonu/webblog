@@ -14,10 +14,10 @@ const blogPostRouter = express.Router();
 
 blogPostRouter.post("/", createBlogPost);
 blogPostRouter.get("/", getAllBlogPosts);
+blogPostRouter.get("/user/blogs", auth, blogsBylogin);
 // Get a single blog post by IDs
 blogPostRouter.get("/:id", getBlogPostById);
 blogPostRouter.put("/:id", updateBlogPostById);
 blogPostRouter.delete("/:id", deleteBlogPostById);
 blogPostRouter.get("/category/:id", getBlogPostByCategory);
-blogPostRouter.get("/user/blogs/:userId", blogsBylogin);
 export { blogPostRouter };
