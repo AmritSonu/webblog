@@ -4,17 +4,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const EditBlogPost = () => {
   const location = useLocation();
-  const { _id } = location.state;
+  const { _id, blogInfo } = location.state;
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
+  const [title, setTitle] = useState(blogInfo.title);
+  const [content, setContent] = useState(blogInfo.content);
   const handleSubmit = (e) => {
     e.preventDefault();
     const updateEndpoint = `/blogposts/${_id}`;
     const updatedData = {
       title,
-      category: "Backend",
+      category: "Frontend",
       content,
     };
     axios
@@ -27,6 +26,9 @@ const EditBlogPost = () => {
       });
     navigate(-1);
   };
+  function handleBackBtn() {
+    navigate(-1);
+  }
 
   return (
     <div className="container mx-auto mt-8">
@@ -74,6 +76,13 @@ const EditBlogPost = () => {
           className="bg-mainColor-400 text-white p-2 rounded-md hover:bg-mainLightcolor-300 transition duration-300"
         >
           Publish
+        </button>
+        <button
+          onClick={handleBackBtn}
+          type="button"
+          className="bg-mainColor-400 text-white p-2 rounded-md hover:bg-mainLightcolor-300 transition duration-300 ml-5"
+        >
+          &larr; Back
         </button>
       </form>
     </div>

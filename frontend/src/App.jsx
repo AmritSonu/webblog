@@ -9,6 +9,7 @@ import { UpdaterMainBox } from "./Components/UpdaterMainBox";
 import { ProtectedRoutes } from "./ProtechtedRoutes";
 import { NotFound } from "./Components/NotFound";
 import { EditBlogPost } from "./Components/BlogContent/EditBlogPost";
+import { AddBlogPost } from "./Components/BlogContent/AddBlogPost";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               element={<ProtectedRoutes Component={UserDashboard} />}
             />
             <Route path="dashboard/editBlogPost" element={<EditBlogPost />} />
+            <Route path="dashboard/addBlogPost" element={<AddBlogPost />} />
 
             <Route path="/blog/:id" element={<MainBlog />} />
             <Route path="category/:category" element={<UpdaterMainBox />} />

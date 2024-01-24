@@ -24,8 +24,8 @@ function BlogListUserData() {
     fetchData();
   }, [token, blogData]);
 
-  const handleEditBtn = (_id) => {
-    navigate(`/dashboard/editBlogPost?id=${_id}`, { state: { _id } });
+  const handleEditBtn = (_id, blogInfo) => {
+    navigate(`/dashboard/editBlogPost?id=${_id}`, { state: { _id, blogInfo } });
   };
 
   function handleDltBtn(_id) {
@@ -50,7 +50,7 @@ function BlogListUserData() {
               <li>{blogInfo.date}</li>
               <li
                 className="hover:cursor-pointer"
-                onClick={() => handleEditBtn(blogInfo._id)}
+                onClick={() => handleEditBtn(blogInfo._id, blogInfo)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
