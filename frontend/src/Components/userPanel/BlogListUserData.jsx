@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { formatMongoDate } from "../UtilFiles/formatDate";
+import { truncateContent } from "../UtilFiles/truncateContent";
 const cookies = new Cookies();
 function BlogListUserData() {
   const navigate = useNavigate();
@@ -44,10 +46,10 @@ function BlogListUserData() {
     <>
       {blogData
         ? blogData.map((blogInfo, index) => (
-            <ul className="flex justify-start p-1 gap-32" key={index}>
-              <li>{blogInfo.title}</li>
+            <ul className="flex justify-start p-1 gap-16 border" key={index}>
+              <li>{truncateContent(blogInfo.title)}</li>
               <li>{blogInfo.category}</li>
-              <li>{blogInfo.date}</li>
+              <li>{formatMongoDate(blogInfo.date)}</li>
               <li
                 className="hover:cursor-pointer"
                 onClick={() => handleEditBtn(blogInfo._id, blogInfo)}

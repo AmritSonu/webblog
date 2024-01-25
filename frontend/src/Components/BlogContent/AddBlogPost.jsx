@@ -1,13 +1,18 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
-
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 const AddBlogPost = () => {
   const navigate = useNavigate();
+  const authToken = cookies.get("TOKEN");
+  const tokenData = authToken
+    ? JSON.parse(atob(authToken.split(".")[1]))
+    : null;
   const [formData, setFormData] = useState({
-    heading: "",
+    title: "",
     content: "",
-    // author: "",
+    author: tokenData.userId,
     category: "Frontend",
   });
 
@@ -19,11 +24,16 @@ const AddBlogPost = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to handle form submission, e.g., API request to save the blog post
-    console.log("Form submitted:", formData);
+    try {
+      await axios.post("/blogposts", formData);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+    navigate(-1);
   };
+
   function handleBackBtn() {
     navigate(-1);
   }
@@ -33,16 +43,16 @@ const AddBlogPost = () => {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
         <div>
           <label
-            htmlFor="heading"
+            htmlFor="title"
             className="block text-sm font-medium text-gray-600"
           >
             Heading
           </label>
           <input
             type="text"
-            id="heading"
-            name="heading"
-            value={formData.heading}
+            id="title"
+            name="title"
+            value={formData.title}
             onChange={handleChange}
             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             required

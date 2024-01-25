@@ -2,7 +2,7 @@ import { BlogListUserData } from "./BlogListUserData";
 import BlogListHeader from "./BlogListHeader";
 import { NavLink } from "react-router-dom";
 import { UserProfile } from "./UserProfile";
-import { SideBar } from "./SideBar";
+import { SideBar } from "./SideBar"; 
 
 function UserPanel() {
   return (

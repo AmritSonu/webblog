@@ -5,9 +5,6 @@ import { useParams } from "react-router-dom";
 export function CommentSection() {
   const [selectedBlog, setSelectedBlog] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [initialLoad, setInitialLoad] = useState(true);
-
-  console.log(isLoading);
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,18 +17,12 @@ export function CommentSection() {
         console.error("Error fetching blog post:", error);
       }
     };
-    // Set isLoading to false after a 1-second delay only on initial load
-    if (initialLoad) {
-      setTimeout(() => {
-        setIsLoading(false);
-        setInitialLoad(false); // Update initialLoad after the first load
-      }, 500);
-    } else {
+    setTimeout(() => {
       setIsLoading(false);
-    }
+    }, 500);
 
-    fetchData(); // Call the async function
-  }, [id, initialLoad]);
+    fetchData();
+  }, [id]);
 
   return (
     <div>
@@ -68,7 +59,6 @@ export function CommentSection() {
                   src="https://images.unsplash.com/photo-1609349744982-0de6526d978b?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDU5fHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
                   alt="user"
                 />
-
                 <div className="bg-gray-200 p-1.5 rounded-lg w-2/3">
                   <span className="font-semibold text-sm">
                     {comment.user.username}
