@@ -8,7 +8,7 @@ const EditProfile = ({ userData, onSave }) => {
   const [image, setImage] = useState("");
   const [editedUserData, setEditedUserData] = useState({ ...userData });
   const authToken = cookies.get("TOKEN");
-  const tokenData = authToken
+  const tokenData = authToken 
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
   useEffect(() => {
