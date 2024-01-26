@@ -1,29 +1,29 @@
 import { uploadToCloudinary } from "../Fileupload/cloudinaryConfig.js";
-import { BlogPost } from "../models/blogPost.js";
+import { User } from "../models/userModel.js";
 
-const uploadIndexBlogImage = async (req, res) => {
+const uploadAvtar = async (req, res) => {
   try {
-    // Upload image to cloudinary
-    const data = await uploadToCloudinary(req.file.path, "image");
-    // Store image inside blogpost(database)...
-    const storeImg = await BlogPost.updateOne(
-      { _id: req.params.id },
-      {
-        $set: {
-          imageUrl: data.url,
-          publicId: data.public_id,
-        },
-      }
-    );
+    const { userId } = req.params;
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const imageData = await uploadToCloudinary(req.file.path, "avtar");
+    // Set the avatar URL in the user model
+    user.avtarUrl = imageData.url;
+    // Update the user in the database
+    await user.save();
+    const updatedUser = await user.save();
     res.json({
-      status: "user image uploaded with secces!",
-      data,
+      status: 200,
+      updatedUser,
     });
-  } catch (err) {
-    res.json({
-      status: "filed to upload image on cloudinary!",
-      message: err.message,
+  } catch (uploadError) {
+    return res.status(500).json({
+      error: "Failed to upload image on Cloudinary",
+      message: uploadError.message,
     });
   }
 };
-export { uploadIndexBlogImage };
+export { uploadAvtar };

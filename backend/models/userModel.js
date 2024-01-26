@@ -18,5 +18,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a valid password!"],
   },
+  avtarUrl: {
+    type: String,
+    required: false,
+  },
 });
 export const User = mongoose.model("User", userSchema);

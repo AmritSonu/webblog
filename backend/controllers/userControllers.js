@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { BlogPost } from "../models/blogPost.js";
 import { User } from "../models/userModel.js";
+import { uploadToCloudinary } from "../Fileupload/cloudinaryConfig.js";
 export const createUser = async (req, res) => {
   try {
     const user = new User(req.body);
-
     // Hash the password and save it to the user object
     user.password = await bcrypt.hash(user.password, 10);
     if (!user.firstname || !user.lastname || !user.email || !user.password) {
@@ -58,6 +58,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
+// **************
 // function for get user information by blogpost ID...
 async function findUserByBlogPost(blogPostId) {
   try {
@@ -90,7 +91,7 @@ export const getUserByBlogPost = async (req, res) => {
     });
   }
 };
-
+// **************
 export const login = async (req, res) => {
   // check if email exists
   User.findOne({ email: req.body.email })
@@ -110,7 +111,6 @@ export const login = async (req, res) => {
               error,
             });
           }
-
           //   create JWT token
           const token = jwt.sign(
             {
@@ -143,4 +143,46 @@ export const login = async (req, res) => {
         e,
       });
     });
+};
+
+// Update user data with a PUT request
+export const updateUserById = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // Update user data concisely
+    const fieldsToUpdate = ["firstname", "lastname", "email"];
+    fieldsToUpdate.forEach((field) => {
+      user[field] = req.body[field] || user[field];
+    });
+    
+    // // Upload image to Cloudinary if file is present
+    // if (req.file) {
+    //   try {
+    //     const imageData = await uploadToCloudinary(req.file.path, "image");
+    //     // Set the avatar URL in the user model
+    //     user.avtarUrl = imageData.url;
+    //     // Update the user in the database
+    //     await user.save();
+    //   } catch (uploadError) {
+    //     return res.status(500).json({
+    //       error: "Failed to upload image on Cloudinary",
+    //       message: uploadError.message,
+    //     });
+    //   }
+    // }
+
+    // // Save the updated user
+    const updatedUser = await user.save();
+    res.json({
+      status: 200,
+      updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };

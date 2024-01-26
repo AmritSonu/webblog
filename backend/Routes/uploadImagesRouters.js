@@ -1,7 +1,7 @@
 // routes/userRoutes.js
 import express from "express";
-import { uploadIndexBlogImage } from "../controllers/imagesController.js";
-
+import { uploadAvtar } from "../controllers/imagesController.js";
+import { upload } from "../middlewares/upload.js";
 const imageRouters = express.Router();
-imageRouters.post("/:id", uploadIndexBlogImage);
+imageRouters.post("/userImage/:userId", upload.single("avtar"), uploadAvtar);
 export { imageRouters };

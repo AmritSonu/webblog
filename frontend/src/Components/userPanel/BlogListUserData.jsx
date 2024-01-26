@@ -43,7 +43,11 @@ function BlogListUserData() {
   }
 
   return (
-    <>
+    <div className="relative">
+      <span className="font-bold text-white absolute right-5 -top-7">
+        total blog Post: {blogData.length}
+      </span>
+
       {blogData
         ? blogData.map((blogInfo, index) => (
             <ul className="flex justify-start p-1 gap-16 border" key={index}>
@@ -84,7 +88,7 @@ function BlogListUserData() {
             </ul>
           ))
         : "You Have not Created blog Pot yet "}
-    </>
+    </div>
   );
 }
 export { BlogListUserData };

@@ -6,7 +6,6 @@ import { userRouters } from "./Routes/userRouters.js";
 import { blogPostRouter } from "./Routes/blogPostRoutes.js";
 import { commentRouters } from "./Routes/commentRoutes.js";
 import { authRouters } from "./Routes/authRoutes.js";
-import { upload } from "./middlewares/upload.js";
 import { imageRouters } from "./Routes/uploadImagesRouters.js";
 
 dotenv.config();
@@ -20,7 +19,7 @@ app.use("/blogposts", blogPostRouter);
 app.use("/blogposts/users", userRouters);
 app.use("/blogposts/comments", commentRouters);
 app.use("/auth", auth, authRouters);
-app.use("/upload", upload.single("image"), imageRouters);
+app.use('/blogposts',imageRouters)
 
 // START SERVER AND CONNECT TO DATABASE
 connectDB();
