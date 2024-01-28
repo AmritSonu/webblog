@@ -45,8 +45,8 @@ function BlogListUserData() {
 
   return (
     <div className="relative">
-      <span className="font-bold text-white absolute right-5 -top-7">
-        total blog Post: {blogData.length}
+      <span className="font-bold absolute right-5 -top-16">
+        Total Blogs: {blogData.length}
       </span>
 
       {blogData

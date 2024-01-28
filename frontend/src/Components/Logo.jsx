@@ -8,7 +8,7 @@ export function Logo() {
   return (
     <>
       <h1
-        className="text-3xl font-bold hover:cursor-pointer"
+        className="text-3xl font-bold hover:cursor-pointer tMobile:text-xl"
         onClick={handleLogo}
       >
         <Link to="/">Web🅱️</Link>

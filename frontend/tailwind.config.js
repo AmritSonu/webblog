@@ -5,11 +5,24 @@ export default {
     extend: {
       colors: {
         mainColor: {
-          400: "#F92F60",
+          400: "#ff853e ",
+          // #ff853e
+          // #F92F60
         },
         mainLightcolor: {
-          300: "#fa4470",
+          300: "#fd6a15",
+          // #fa4470
+          //  #fd6a15
         },
+      },
+      fontSize: {
+        vs: "0.7rem",
+        ns: "1rem",
+      },
+      screens: {
+        tMobile: { max: "650px" },
+        mobile: { max: "550px" },
+        sMobile: { max: "425px" },
       },
     },
   },

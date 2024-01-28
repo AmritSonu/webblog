@@ -47,7 +47,7 @@ const CommentToBlogPost = ({ setRender }) => {
       <form onSubmit={handleCommentSubmit}>
         <div className="mb-4">
           <textarea
-            className="w-3/6 p-2 border border-gray-300 rounded h-28"
+            className="w-4/6 p-2 border border-gray-300 rounded h-18"
             placeholder="Write a comment..."
             value={comment}
             onChange={handleCommentChange}

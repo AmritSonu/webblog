@@ -33,7 +33,8 @@
 }
 
 .pagination-item.selected {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: #fd6a15;
+  color: white;
 }
 
 .pagination-item .arrow::before {
@@ -68,4 +69,12 @@
 .pagination-item.disabled:hover {
   background-color: transparent;
   cursor: default;
+}
+
+@media only screen and (max-width: 600px) {
+  .pagination-item {
+    margin-top: 2rem;
+    font-size: 14px;
+    font-weight: bold;
+  }
 }

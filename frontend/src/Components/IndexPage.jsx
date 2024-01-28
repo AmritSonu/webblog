@@ -51,8 +51,8 @@ export function IndexPage() {
 function LoadingPlaceholder() {
   return (
     <>
-      <div className="absolute top-0 right-0 bg-gray-300 text-white p-1 font-thin h-4 w-16"></div>
-      <div className="flex items-center">
+      <div className="absolute top-0 right-0 bg-gray-300 text-white p-1 font-thin h-4 w-16 "></div>
+      <div className="flex items-center  tMobile:flex-col mb-10">
         <div className="w-2/6 h-24 bg-gray-300 mr-4"></div>
         <div>
           <h1 className="text-sm mb-2 h-4 bg-gray-300"></h1>

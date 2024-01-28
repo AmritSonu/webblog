@@ -34,7 +34,7 @@ const Pagination = (props) => {
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <ul className={classnames("pagination-container", className)}>
+    <ul className={classnames("pagination-container ", className)}>
       <li
         className={classnames("pagination-item", {
           disabled: currentPage === 1,

@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom";
 
 export function CategoryPost() {
   return (
-    <div className="bg-white w-7/12 mr-auto ml-auto mt-5 mb-5 flex items-center justify-around p-2 ">
+    <div className="bg-white text-gray-700 font-bold mr-auto ml-auto mt-5 mb-5 flex items-center py-2 sm:justify-around mobile:text-sm sMobile:text-vs justify-between w-4/5 md:w-7/12">
       <NavLink
         className={({ isActive }) =>
-          isActive ? "text-mainColor-400 font-bold" : "hover:cursor-pointer"
+          isActive
+            ? "text-mainColor-400 font-extrabold"
+            : "hover:cursor-pointer"
         }
         to="/category/Frontend"
       >

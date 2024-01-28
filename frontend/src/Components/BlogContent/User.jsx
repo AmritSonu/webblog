@@ -49,9 +49,9 @@ export function User() {
           <h5 className="text-gray-600 text-center text-sm font-semibold">
             {user.username}
           </h5>
-          <span className="text-gray-600 text-center  text-sm">
+          {/* <span className="text-gray-600 text-center  text-sm">
             Web Developer
-          </span>
+          </span> */}
           <span className="text-gray-500 text-center block font-bold text-sm">
             {`${user.firstname}  ${user.lastname}`}
           </span>

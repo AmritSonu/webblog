@@ -42,15 +42,15 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-6 mb-6">
+    <div className="flex items-center justify-center mt-6 mb-6 ">
       <div className="w-full max-w-md rounded-lg p-6">
         <h2 className="text-2xl font-bold text-mainColor-400 mb-4">Sign Up</h2>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col " onSubmit={handleSubmit}>
           <div className="flex space-x-4 mb-4">
             <input
               placeholder="FirstName"
               name="firstname"
-              className="border-2 rounded-md p-2 w-1/2 focus:outline-none"
+              className="border-2 rounded-md p-2 w-1/2 focus:outline-none  mobile:placeholder:text-sm"
               type="text"
               value={firstname}
               onChange={(e) => setFirstName(e.target.value)}
@@ -58,7 +58,7 @@ const Register = () => {
             <input
               placeholder="Last Name"
               name="lastname"
-              className="border-2 rounded-md p-2 w-1/2 focus:outline-none"
+              className="border-2 rounded-md p-2 w-1/2 focus:outline-none  mobile:placeholder:text-sm"
               type="text"
               value={lastname}
               onChange={(e) => setLastName(e.target.value)}
@@ -67,7 +67,7 @@ const Register = () => {
           <input
             placeholder="Email"
             name="email"
-            className="border-2 rounded-md p-2 mb-4 focus:outline-none"
+            className="border-2 rounded-md p-2 mb-4 focus:outline-none  mobile:placeholder:text-sm"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +75,7 @@ const Register = () => {
           <input
             placeholder="Password"
             name="password"
-            className="border-2 rounded-md p-2 mb-4 focus:outline-none"
+            className="border-2 rounded-md p-2 mb-4 focus:outline-none  mobile:placeholder:text-sm"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -87,10 +87,10 @@ const Register = () => {
                 You Are Registered Successfully
               </p>
             ) : (
-              <p className="text-red-700 font-mono ">You Have not Registered</p>
+              <p className="text-red-700 font-mono ">You Have not Registered yet :(</p>
             )}
           </div>
-          <p className="mt-4">
+          <p className="mt-4 font-semibold">
             Already have an account?
             <Link
               to="/login"
