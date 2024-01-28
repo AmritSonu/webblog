@@ -11,7 +11,6 @@ function UserProfile() {
   const tokenData = authToken
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
-
   const putUserProfile = async (editedUserData) => {
     try {
       await axios.put(`blogposts/users/${tokenData.userId}`, editedUserData);
@@ -20,8 +19,10 @@ function UserProfile() {
       console.error("Request Error:", error.message);
     }
   };
+
   useEffect(() => {
     const handleSaveProfile = async () => {
+      if (!tokenData) return;
       try {
         const response = await axios.get(`blogposts/users/${tokenData.userId}`);
         setUserData(response.data.user);
@@ -30,8 +31,7 @@ function UserProfile() {
       }
     };
     handleSaveProfile();
-  }, [rerender]);
-
+  }, [rerender, tokenData]);
   return (
     <>
       <EditProfile userData={userData} onSave={putUserProfile} />

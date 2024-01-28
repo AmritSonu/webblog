@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export function CommentSection() {
-  const [selectedBlog, setSelectedBlog] = useState({});
+export function CommentSection({ render }) {
+  const [selectedBlogComments, setselectedBlogComments] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
@@ -12,7 +13,7 @@ export function CommentSection() {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/blogposts/comments/${id}`);
-        setSelectedBlog(response.data);
+        setselectedBlogComments(response.data);
       } catch (error) {
         console.error("Error fetching blog post:", error);
       }
@@ -22,7 +23,8 @@ export function CommentSection() {
     }, 500);
 
     fetchData();
-  }, [id]);
+  }, [id, render]);
+  // console.log(selectedBlogComments);
 
   return (
     <div>
@@ -31,13 +33,13 @@ export function CommentSection() {
       </h1>
       <div className="border-2"></div>
       <p className="font-bold text-mainColor-400 text-sm">
-        {selectedBlog.comments
-          ? `${selectedBlog.comments.length} Comments`
+        {selectedBlogComments.comments
+          ? `${selectedBlogComments.comments.length} Comments`
           : "0 Comments"}
       </p>
 
-      {selectedBlog.comments &&
-        selectedBlog.comments.map((comment) => (
+      {selectedBlogComments.comments &&
+        selectedBlogComments.comments.map((comment) => (
           <div className="mt-8 mb-8 flex gap-2 p-1" key={comment._id}>
             {isLoading ? (
               <>
@@ -54,21 +56,28 @@ export function CommentSection() {
               </>
             ) : (
               <>
-                <img
-                  className="w-10 h-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1609349744982-0de6526d978b?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDU5fHRvd0paRnNrcEdnfHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                  alt="user"
-                />
+                {comment.user.avtarUrl ? (
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={comment.user.avtarUrl}
+                    alt="blog_pic"
+                  />
+                ) : (
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src="/No_userfound.png"
+                    alt="blog_pic"
+                  />
+                )}
                 <div className="bg-gray-200 p-1.5 rounded-lg w-2/3">
                   <span className="font-semibold text-sm">
-                    {comment.user.username}
+                    {comment.user.firstname} {comment.user.lastname}
                   </span>
                   <p className="text-sm font-sans text-gray mt-1">
                     {comment.text}
                   </p>
                   <div className="flex gap-3 text-xs font-bold text-gray-600">
-                    <span className="hover:cursor-pointer">Like</span>
-                    <span className="hover:cursor-pointer">Replay</span>
+                    {/* <span className="hover:cursor-pointer">Like</span> */}
                     <span className="hover:cursor-pointer">1 hour </span>
                   </div>
                 </div>
@@ -79,3 +88,7 @@ export function CommentSection() {
     </div>
   );
 }
+// Add PropTypes to your functional component
+CommentSection.propTypes = {
+  render: PropTypes.any,
+};

@@ -13,6 +13,7 @@ function BlogListUserData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (!token) return;
         const response = await axios.get("/blogposts/user/blogs", {
           headers: {
             Authorization: `Bearer ${token}`,

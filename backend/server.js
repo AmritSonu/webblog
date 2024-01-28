@@ -19,8 +19,7 @@ app.use("/blogposts", blogPostRouter);
 app.use("/blogposts/users", userRouters);
 app.use("/blogposts/comments", commentRouters);
 app.use("/auth", auth, authRouters);
-app.use('/blogposts',imageRouters)
-
+app.use("/blogposts", imageRouters);
 // START SERVER AND CONNECT TO DATABASE
 connectDB();
 app.listen(PORT, () => {

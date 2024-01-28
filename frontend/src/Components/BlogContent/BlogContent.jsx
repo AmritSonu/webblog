@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 
 export function BlogContent() {
   const location = useLocation();
+  // console.log(location)
   const selectedBlog = location.state.selectedBlog;
   return (
     <div>
