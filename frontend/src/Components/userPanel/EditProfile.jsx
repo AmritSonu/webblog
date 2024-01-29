@@ -8,7 +8,7 @@ const EditProfile = ({ userData, onSave }) => {
   const [image, setImage] = useState("");
   const [editedUserData, setEditedUserData] = useState({ ...userData });
   const authToken = cookies.get("TOKEN");
-  const tokenData = authToken 
+  const tokenData = authToken
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
   useEffect(() => {
@@ -19,7 +19,7 @@ const EditProfile = ({ userData, onSave }) => {
     if (isEditing) {
       const formData = new FormData();
       onSave(editedUserData);
-
+      console.log("edit open");
       if (image) {
         formData.append("avtar", image);
         axios
@@ -106,25 +106,23 @@ const EditProfile = ({ userData, onSave }) => {
           />
         )}
       </div>
-      <div className="flex mb-2">
+      <div className="flex mb-2 tMobile:flex-col gap-2">
         {isEditing ? (
           <>
             <input
               type="text"
               id="firstname"
               name="firstname"
-              className="border mr-2"
+              className="border sm:mr-2 py-1"
               placeholder="First Name"
-              value={editedUserData.firstname}
               onChange={handleInputChange}
             />
             <input
               type="text"
               id="lastname"
               name="lastname"
-              className="border"
+              className="border py-1 "
               placeholder="Last Name"
-              value={editedUserData.lastname}
               onChange={handleInputChange}
             />
           </>
@@ -138,9 +136,9 @@ const EditProfile = ({ userData, onSave }) => {
             type="text"
             id="email"
             name="email"
-            className="border"
+            className="border py-1"
             placeholder="Email"
-            value={editedUserData.email}
+            // value={editedUserData.email}
             onChange={handleInputChange}
           />
         ) : (

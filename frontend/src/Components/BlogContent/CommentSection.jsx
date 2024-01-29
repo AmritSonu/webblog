@@ -16,15 +16,13 @@ export function CommentSection({ render }) {
         setselectedBlogComments(response.data);
       } catch (error) {
         console.error("Error fetching blog post:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
 
     fetchData();
   }, [id, render]);
-  // console.log(selectedBlogComments);
 
   return (
     <div>
@@ -56,7 +54,7 @@ export function CommentSection({ render }) {
               </>
             ) : (
               <>
-                {comment.user.avtarUrl ? (
+                {comment.user && comment.user.avtarUrl ? (
                   <img
                     className="w-10 h-10 rounded-full"
                     src={comment.user.avtarUrl}
@@ -71,7 +69,8 @@ export function CommentSection({ render }) {
                 )}
                 <div className="bg-gray-200 p-1.5 rounded-lg w-2/3">
                   <span className="font-semibold text-sm">
-                    {comment.user.firstname} {comment.user.lastname}
+                    {comment.user && comment.user.firstname}{" "}
+                    {comment.user && comment.user.lastname}
                   </span>
                   <p className="text-sm font-sans text-gray mt-1">
                     {comment.text}
@@ -88,6 +87,7 @@ export function CommentSection({ render }) {
     </div>
   );
 }
+
 // Add PropTypes to your functional component
 CommentSection.propTypes = {
   render: PropTypes.any,

@@ -18,6 +18,7 @@ function UserProfile() {
     } catch (error) {
       console.error("Request Error:", error.message);
     }
+    console.table(editedUserData);
   };
 
   useEffect(() => {

@@ -11,7 +11,9 @@ export function Logo() {
         className="text-3xl font-bold hover:cursor-pointer tMobile:text-xl"
         onClick={handleLogo}
       >
-        <Link to="/">Web🅱️</Link>
+        <Link to="/">Web
+        <span className="bg-mainColor-400 px-3 m-1 text-white">B</span>
+        </Link>
       </h1>
     </>
   );

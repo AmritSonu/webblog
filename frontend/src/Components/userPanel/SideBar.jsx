@@ -1,7 +1,7 @@
 function SideBar() {
   return (
     <>
-      <div className="w-1/5 bg-gray-800 p-4">
+      <div className="hidden bg-gray-800 p-4  md:block">
         <h2 className="text-xl font-semibold mb-4 text-white">
           Blog User Panel
         </h2>

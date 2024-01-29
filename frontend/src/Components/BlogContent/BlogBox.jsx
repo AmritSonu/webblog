@@ -83,13 +83,12 @@ export function BlogBox({ blogContent }) {
     </div>
   );
 }
-
 // Extract the date Content with readable encoding....
 function formatMongoDBDate(mongoDBDateString) {
   const dateObj = new Date(mongoDBDateString);
   // Extract components
   const year = dateObj.getFullYear();
-  const month = dateObj.getMonth() + 1; // Months are zero-based (0 = January)
+  const month = dateObj.getMonth() + 1;
   const day = dateObj.getDate();
   const hours = dateObj.getHours();
   const minutes = dateObj.getMinutes();
@@ -100,7 +99,6 @@ function formatMongoDBDate(mongoDBDateString) {
   return `${year}/${month}/${day} : ${formattedHours}:${formattedMinutes} ${period}`;
 }
 
-// Short the Paragraph in frontPage...
 const truncateContent = (content, maxLength = 150) => {
   if (content.length > maxLength) {
     return content.substring(0, maxLength) + "...";

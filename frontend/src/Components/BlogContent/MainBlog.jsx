@@ -1,4 +1,4 @@
-import { User } from "./User";
+// import { User } from "./User";
 import { BlogContent } from "./BlogContent";
 import { CommentSection } from "./CommentSection";
 import { CommentToBlogPost } from "./CommentToBlogPost";
@@ -18,7 +18,6 @@ export function MainBlog() {
   }
   return (
     <div className="w-4/5 mr-auto ml-auto">
-      <User />
       <BlogContent />
       <CommentSection setRender={setRender} render={render} />
       {!tokenData ? (

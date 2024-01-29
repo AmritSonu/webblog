@@ -38,15 +38,16 @@ const AddBlogPost = () => {
     navigate(-1);
   }
   return (
-    <div className="w-6/12 mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Add Blog Post</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
-        <div>
+    <div className="container mx-auto mt-8 p-2">
+      <h2 className="text-2xl font-semibold mb-4 text-center">Add Blog Post</h2>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md">
+        <div className="mt-5">
           <label
             htmlFor="title"
             className="block text-sm font-medium text-gray-600"
           >
             Heading
+          
           </label>
           <input
             type="text"
@@ -54,11 +55,11 @@ const AddBlogPost = () => {
             name="title"
             value={formData.title}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 p-2 w-full border rounded-md focus:ring focus:outline-none"
             required
           />
         </div>
-        <div>
+        <div className="mt-5">
           <label
             htmlFor="content"
             className="block text-sm font-medium text-gray-600"
@@ -75,7 +76,7 @@ const AddBlogPost = () => {
             required
           ></textarea>
         </div>
-        <div>
+        <div className="mt-5">
           <label
             htmlFor="category"
             className="block text-sm font-medium text-gray-600"
@@ -95,7 +96,7 @@ const AddBlogPost = () => {
             <option value="Other">Other</option>
           </select>
         </div>
-        <div>
+        <div className="mt-5">
           <button
             type="submit"
             className="bg-mainColor-400 text-white py-2 px-4 rounded-md hover:bg-mainLightcolor-300 focus:outline-none focus:ring focus:border-blue-300"

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
 export function User() {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -16,43 +15,37 @@ export function User() {
     } catch (err) {
       console.log("Error While Fetching User from server:", err);
     }
-    // Set isLoading to false after a 1-second delay only on initial load
     if (initialLoad) {
       setTimeout(() => {
         setIsLoading(false);
-        setInitialLoad(false); // Update initialLoad after the first load
+        setInitialLoad(false);
       }, 500);
     } else {
       setIsLoading(false);
     }
   }, [id, initialLoad]);
-  const randomImageUrl = getRandomImageUrl();
-
   return (
-    <div className="flex items-center justify-center gap-5 p-1 rounded-sm max-w-md mx-auto w-6/12 mt-3 bg-slate-100">
+    <div className="flex items-center  gap-5 p-1 max-w-md w-6/12 my-5 sMobile:gap-1">
       {isLoading ? (
-        <>
-          <div className="w-20 h-20 bg-gray-300 rounded-full mx-auto"></div>
-          <div className="w-20 h-4 bg-gray-300"></div>
-          <div className="w-20 h-4 bg-gray-300"></div>
-          <div className="w-20 h-4 bg-gray-300"></div>
-        </>
+        <UserSkeleton />
       ) : (
         <>
           <div>
-            <img
-              src={randomImageUrl}
-              alt="Random Profile"
-              className="w-20 h-20 rounded-full mx-auto"
-            />
+            {user.avtarUrl ? (
+              <img
+                src={user.avtarUrl}
+                alt="Random Profile"
+                className="w-16 h-16 rounded-lg tMobile:w-16 tMobile:object-contain md:w-16 md:rounded-sm"
+              />
+            ) : (
+              <img
+                src="/No_userfound.png"
+                alt="Random Profile"
+                className="w-16 h-16 rounded-lg tMobile:w-16 tMobile:object-contain md:w-16 md:rounded-sm"
+              />
+            )}
           </div>
-          <h5 className="text-gray-600 text-center text-sm font-semibold">
-            {user.username}
-          </h5>
-          {/* <span className="text-gray-600 text-center  text-sm">
-            Web Developer
-          </span> */}
-          <span className="text-gray-500 text-center block font-bold text-sm">
+          <span className="text-center block font-bold font-serif text-sm md:text-lg">
             {`${user.firstname}  ${user.lastname}`}
           </span>
         </>
@@ -60,12 +53,13 @@ export function User() {
     </div>
   );
 }
-
-function getRandomImageUrl() {
-  const width = 200;
-  const height = 200;
-
-  const randomNum = Math.floor(Math.random() * 1000);
-
-  return `https://picsum.photos/${width}/${height}?random=${randomNum}`;
+function UserSkeleton() {
+  return (
+    <>
+      <div className="animate-pulse">
+        <div className="w-16 h-16 mx-auto rounded-sm bg-gray-300" />
+      </div>
+      <span className=" h-8 bg-gray-300 w-32 animate-pulse"></span>
+    </>
+  );
 }
