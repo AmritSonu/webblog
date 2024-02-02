@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-      "/blogposts": "http://localhost:3000",
+      "webblog-blond.vercel.app": "http://localhost:3000",
     },
   },
   plugins: [react()],
