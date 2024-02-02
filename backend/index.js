@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"; // Import the cors middleware
 import dotenv from "dotenv";
 import { connectDB } from "./db.js";
 import { auth } from "./middlewares/auth.js";
@@ -12,6 +13,13 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+
+app.use(
+  cors({
+    origin: "https://web-bee-neon.vercel.app/",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
