@@ -17,7 +17,6 @@ function ProtectedRoutes(props) {
       navigate("/login");
     }
   }, [navigate]);
-
   return (
     <div>
       {/* Display the logout button */}

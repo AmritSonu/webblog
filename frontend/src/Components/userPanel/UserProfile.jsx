@@ -6,21 +6,24 @@ const cookies = new Cookies();
 
 function UserProfile() {
   const [userData, setUserData] = useState({});
-  const [rerender, setRerender] = useState(false);
+  const [loading, setLoading] = useState(true);
   const authToken = cookies.get("TOKEN");
+
   const tokenData = authToken
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
   const putUserProfile = async (editedUserData) => {
     try {
+      setLoading(true);
       await axios.put(`blogposts/users/${tokenData.userId}`, editedUserData);
-      setRerender(!rerender);
     } catch (error) {
       console.error("Request Error:", error.message);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
-    console.table(editedUserData);
   };
-
   useEffect(() => {
     const handleSaveProfile = async () => {
       if (!tokenData) return;
@@ -29,14 +32,33 @@ function UserProfile() {
         setUserData(response.data.user);
       } catch (error) {
         console.error("Request Error:", error.message);
+      } finally {
+        setLoading(false);
       }
     };
     handleSaveProfile();
-  }, [rerender, tokenData]);
+  }, [loading]);
+  // console.log("redering...");
   return (
     <>
-      <EditProfile userData={userData} onSave={putUserProfile} />
+      {loading ? (
+        <UserProfilePlaceHolder />
+      ) : (
+        <EditProfile userData={userData} onSave={putUserProfile} />
+      )}
     </>
+  );
+}
+function UserProfilePlaceHolder() {
+  return (
+    <div className="flex justify-center items-center">
+      <div className="w-40 flex justify-center items-center flex-col gap-4 animate-pulse">
+        <div className="h-24 w-24 rounded-full bg-slate-300"></div>
+        <div className="mb-1 h-5 w-9/12 rounded-md bg-slate-300 text-lg "></div>
+        <div className="h-5 w-9/12 rounded-md bg-slate-300 text-sm"></div>
+        <div className="mt-1 h-8 w-6/12  bg-slate-300 text-sm"></div>
+      </div>
+    </div>
   );
 }
 export { UserProfile };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import Cookies from "universal-cookie";
@@ -6,14 +6,16 @@ const cookies = new Cookies();
 const EditProfile = ({ userData, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [image, setImage] = useState("");
-  const [editedUserData, setEditedUserData] = useState({ ...userData });
+  const [editedUserData, setEditedUserData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+  });
+  let inputValues = editedUserData;
   const authToken = cookies.get("TOKEN");
   const tokenData = authToken
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
-  useEffect(() => {
-    setEditedUserData({ ...userData });
-  }, [userData]);
 
   const handleEditClick = () => {
     if (isEditing) {
@@ -115,6 +117,7 @@ const EditProfile = ({ userData, onSave }) => {
               name="firstname"
               className="border sm:mr-2 py-1"
               placeholder="First Name"
+              value={inputValues.firstname}
               onChange={handleInputChange}
             />
             <input
@@ -122,6 +125,7 @@ const EditProfile = ({ userData, onSave }) => {
               id="lastname"
               name="lastname"
               className="border py-1 "
+              value={editedUserData.lastname}
               placeholder="Last Name"
               onChange={handleInputChange}
             />
@@ -138,7 +142,7 @@ const EditProfile = ({ userData, onSave }) => {
             name="email"
             className="border py-1"
             placeholder="Email"
-            // value={editedUserData.email}
+            value={editedUserData.email}
             onChange={handleInputChange}
           />
         ) : (

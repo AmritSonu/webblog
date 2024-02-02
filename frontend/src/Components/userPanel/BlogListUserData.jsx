@@ -32,24 +32,26 @@ function BlogListUserData() {
       }
     };
     fetchData();
-  }, [token, blogData]);
+  }, [token, loading]);
 
   const handleEditBtn = (_id, blogInfo) => {
     navigate(`/dashboard/editBlogPost?id=${_id}`, { state: { _id, blogInfo } });
   };
 
-  function handleDltBtn(_id) {
-    const deleteEndpoint = `/blogposts/${_id}`;
-    axios
-      .delete(deleteEndpoint)
-      .then((response) => {
-        console.log("Blog post deleted successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error deleting blog post:", error);
-      });
+  async function handleDltBtn(_id) {
+    try {
+      setLoading(true);
+      const deleteEndpoint = `/blogposts/${_id}`;
+      const response = await axios.delete(deleteEndpoint);
+      console.log("Blog post deleted successfully:", response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+    } finally {
+      setLoading(false);
+    }
   }
-
+  // console.log("rendering....");
   return (
     <div className="relative">
       <span className="font-bold font-serif absolute right-5 -top-16 ">
@@ -154,16 +156,13 @@ function BlogListUserData() {
   );
 }
 
+
 function BlogListUserDataSkeleton() {
   return (
-    <div className="flex justify-evenly items-center mt-5 gap-16 md:text-lg mobile:gap-0 w-full p-2">
-      <ul className="flex flex-col  gap-4 p-1 mb-10 shadow-md w-11/12">
-        <li className="h-6 w-48 bg-slate-200 animate-pulse"></li>
-        <li className="h-6 w-48 bg-slate-200 animate-pulse"></li>
-        <li className="h-6 w-48 bg-slate-200 animate-pulse"></li>
-        <li className="h-6 w-48 bg-slate-200 animate-pulse"></li>
-      </ul>
-      <div className="h-10 w-10 bg-slate-200 animate-pulse"></div>
+    <div className="flex justify-center items-center mt-5 gap-16 md:text-lg mobile:gap-0 w-full p-2">
+      <div className="flex-col gap-4 w-full flex items-center justify-center mt-12">
+        <div className="w-10 h-10 border-8 text-mainLightcolor-300 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full"></div>
+      </div>
     </div>
   );
 }
