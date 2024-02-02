@@ -67,7 +67,7 @@ function BlogListUserData() {
     setShowConfirmDialog(false);
   };
 
-  console.log("Rendering...");
+  // console.log("Rendering...");
   return (
     <div className="relative">
       <span className="font-bold font-serif absolute right-5 -top-16 ">

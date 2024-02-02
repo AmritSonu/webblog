@@ -9,10 +9,11 @@ import {
   updateBlogPostById,
 } from "../controllers/blogPostController.js";
 import { auth } from "../middlewares/auth.js";
+import { upload } from "../middlewares/upload.js";
 
 const blogPostRouter = express.Router();
 
-blogPostRouter.post("/", createBlogPost);
+blogPostRouter.post("/", upload.single("heroImage"), createBlogPost);
 blogPostRouter.get("/", getAllBlogPosts);
 blogPostRouter.get("/user/blogs", auth, blogsBylogin);
 // Get a single blog post by IDs

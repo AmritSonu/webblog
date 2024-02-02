@@ -1,12 +1,43 @@
 // controllers/blogPostController.js
 import { BlogPost } from "./../models/blogPost.js";
 import { Comment } from "../models/comment.js";
+import { uploadToCloudinary } from "../Fileupload/cloudinaryConfig.js";
 // Create a new blog post
 export const createBlogPost = async (req, res) => {
   try {
-    const blogPost = new BlogPost(req.body);
-    await blogPost.save();
-    res.status(201).json(blogPost);
+    const { title, category, content, author } = req.body;
+
+    // Check if an image file is uploaded
+    if (req.file) {
+      const { path } = req.file;
+
+      // Upload the image to Cloudinary
+      const cloudinaryResponse = await uploadToCloudinary(path, "heroImage");
+
+      // Add imageUrl to the blog post data
+      const blogDataWithImage = {
+        title,
+        category,
+        content,
+        author,
+        imageUrl: cloudinaryResponse.url,
+      };
+
+      // Remove the local file after uploading to Cloudinary
+      // (You might want to remove it after the blog post is successfully saved in the database)
+      // fs.unlinkSync(path);
+
+      // Save the blog post with the image URL
+      const blogPost = new BlogPost(blogDataWithImage);
+      await blogPost.save();
+
+      res.status(201).json(blogPost);
+    } else {
+      // No image file uploaded, handle without image
+      const blogPost = new BlogPost({ title, category, content, author });
+      await blogPost.save();
+      res.status(201).json(blogPost);
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

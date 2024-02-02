@@ -25,27 +25,27 @@ const uploadAvtar = async (req, res) => {
   }
 };
 
-const uploadHeroImage = async (req, res) => {
-  try {
-    const data = await uploadToCloudinary(req.file.path, "image");
-    const storeImg = await BlogPost.updateOne(
-      { _id: req.params.id },
-      {
-        $set: {
-          imageUrl: data.url,
-          publicId: data.public_id,
-        },
-      }
-    );
-    res.json({
-      status: "Index image uploaded with secces!",
-      data,
-    });
-  } catch (err) {
-    res.json({
-      status: "filed to upload image on cloudinary!",
-      message: err.message,
-    });
-  }
-};
-export { uploadAvtar, uploadHeroImage };
+// const uploadHeroImage = async (req, res) => {
+//   try {
+//     const data = await uploadToCloudinary(req.file.path, "image");
+//     const storeImg = await BlogPost.updateOne(
+//       { _id: req.params.id },
+//       {
+//         $set: {
+//           imageUrl: data.url,
+//           publicId: data.public_id,
+//         },
+//       }
+//     );
+//     res.json({
+//       status: "Index image uploaded with secces!",
+//       data,
+//     });
+//   } catch (err) {
+//     res.json({
+//       status: "filed to upload image on cloudinary!",
+//       message: err.message,
+//     });
+//   }
+// };
+export { uploadAvtar };

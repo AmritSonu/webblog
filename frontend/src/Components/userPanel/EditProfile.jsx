@@ -21,6 +21,7 @@ const EditProfile = ({ userData, onSave }) => {
     if (isEditing) {
       const formData = new FormData();
       onSave(editedUserData);
+    
       if (image) {
         formData.append("avtar", image);
         axios
