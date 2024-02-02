@@ -21,7 +21,6 @@ const EditProfile = ({ userData, onSave }) => {
     if (isEditing) {
       const formData = new FormData();
       onSave(editedUserData);
-      console.log("edit open");
       if (image) {
         formData.append("avtar", image);
         axios
@@ -31,7 +30,6 @@ const EditProfile = ({ userData, onSave }) => {
           })
           .catch((error) => {
             console.error("Image upload failed", error);
-            // Handle error, if needed
           });
       }
     }
@@ -50,7 +48,6 @@ const EditProfile = ({ userData, onSave }) => {
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
-
   return (
     <div className="border flex flex-col items-center p-4">
       <div className="mb-4">
