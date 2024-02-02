@@ -26,6 +26,9 @@ app.use("/blogposts/comments", commentRouters);
 app.use("/auth", auth, authRouters);
 app.use("/blogposts", imageRouters);
 
+app.use("/", (req, res) => {
+  res.send("Hello from Server");
+});
 // START SERVER AND CONNECT TO DATABASE
 connectDB();
 app.listen(PORT, () => {
