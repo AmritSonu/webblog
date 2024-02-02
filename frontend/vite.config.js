@@ -5,11 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   server: {
     proxy: {
-      "/blogposts": {
-        target: "webblog-blond.vercel.app", // Replace with your actual backend URL
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/blogposts/, ""),
-      },
+      "/blogposts": "https://webblog-blond.vercel.app/",
     },
   },
   plugins: [react()],

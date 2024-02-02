@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors"; // Import the cors middleware
 import dotenv from "dotenv";
 import { connectDB } from "./db.js";
 import { auth } from "./middlewares/auth.js";
@@ -13,9 +12,6 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-// Use cors middleware to enable CORS
-app.use(cors());
 
 app.use(express.json());
 
