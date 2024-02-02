@@ -25,7 +25,7 @@ const EditProfile = ({ userData, onSave }) => {
       if (image) {
         formData.append("avtar", image);
         axios
-          .post(`/blogposts/userImage/${tokenData.userId}`, formData)
+          .post(`https://webblog-blond.vercel.app/blogposts/userImage/${tokenData.userId}`, formData)
           .then((res) => {
             console.log(res);
           })

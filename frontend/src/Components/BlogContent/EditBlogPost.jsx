@@ -10,7 +10,7 @@ const EditBlogPost = () => {
   const [content, setContent] = useState(blogInfo.content);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updateEndpoint = `/blogposts/${_id}`;
+    const updateEndpoint = `https://webblog-blond.vercel.app/blogposts/${_id}`;
     const updatedData = {
       title,
       category: "Frontend",

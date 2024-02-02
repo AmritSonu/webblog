@@ -21,7 +21,7 @@ function BlogListUserData() {
     const fetchData = async () => {
       try {
         if (!token) return;
-        const response = await axios.get("/blogposts/user/blogs", {
+        const response = await axios.get("https://webblog-blond.vercel.app/blogposts/user/blogs", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -48,7 +48,7 @@ function BlogListUserData() {
   const handleConfirmDelete = async () => {
     try {
       setLoading(true);
-      const deleteEndpoint = `/blogposts/${blogToDelete}`;
+      const deleteEndpoint = `https://webblog-blond.vercel.app/blogposts/${blogToDelete}`;
       const response = await axios.delete(deleteEndpoint);
       console.log("Blog post deleted successfully:", response.data);
     } catch (error) {

@@ -16,7 +16,7 @@ const Register = () => {
     // set configurations
     const configuration = {
       method: "post",
-      url: "blogposts/users",
+      url: "https://webblog-blond.vercel.app/blogposts/users",
       data: {
         firstname,
         lastname,

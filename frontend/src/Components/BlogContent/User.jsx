@@ -9,7 +9,7 @@ export function User() {
   useEffect(() => {
     setIsLoading(true);
     try {
-      axios.get(`/blogposts/users/userbyBlogpost/${id}`).then((res) => {
+      axios.get(`https://webblog-blond.vercel.app/blogposts/users/userbyBlogpost/${id}`).then((res) => {
         setUser(res.data);
       });
     } catch (err) {

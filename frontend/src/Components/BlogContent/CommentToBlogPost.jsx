@@ -30,7 +30,7 @@ const CommentToBlogPost = ({ setRender }) => {
   };
   const postComment = async () => {
     try {
-      const response = await axios.post("/blogposts/comments", commentData);
+      const response = await axios.post("https://webblog-blond.vercel.app/blogposts/comments", commentData);
       console.log(response);
       setRender(false);
     } catch (err) {

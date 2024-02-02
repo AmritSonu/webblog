@@ -46,11 +46,15 @@ const AddBlogPost = () => {
         formImageData.append(key, formData[key]);
       });
 
-      await axios.post("/blogposts", formImageData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        "https://webblog-blond.vercel.app/blogposts",
+        formImageData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -61,7 +65,7 @@ const AddBlogPost = () => {
   function handleBackBtn() {
     navigate(-1);
   }
-console.log()
+  console.log();
   return (
     <div className="container mx-auto mt-8 p-2">
       <h2 className="text-2xl font-semibold mb-4 text-center">Add Blog Post</h2>

@@ -10,7 +10,7 @@ export function BlogProvider({ children }) {
   // fetch data from server ...
   const fetchData = async () => {
     try {
-      const response = await axios.get("/blogposts");
+      const response = await axios.get("https://webblog-blond.vercel.app/blogposts");
       setBlogContent(response.data.blogPosts);
     } catch (error) {
       console.error("Error fetching blog posts:", error);

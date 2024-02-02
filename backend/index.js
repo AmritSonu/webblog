@@ -14,12 +14,19 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://web-bee-neon.vercel.app/",
-    credentials: true,
-  })
-);
+app.use((req, res, next) => {
+  const allowedOrigin = "https://web-bee-neon.vercel.app";
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 
 app.use(express.json());
 

@@ -15,7 +15,7 @@ export function Login() {
     // set configurations
     const configuration = {
       method: "post",
-      url: "blogposts/users/login",
+      url: "https://webblog-blond.vercel.app/blogposts/users/login",
       data: {
         email,
         password,

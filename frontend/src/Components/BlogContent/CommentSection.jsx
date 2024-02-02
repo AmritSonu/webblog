@@ -12,7 +12,7 @@ export function CommentSection({ render }) {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/blogposts/comments/${id}`);
+        const response = await axios.get(`https://webblog-blond.vercel.app/blogposts/comments/${id}`);
         setselectedBlogComments(response.data);
       } catch (error) {
         console.error("Error fetching blog post:", error);

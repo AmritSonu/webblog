@@ -15,7 +15,7 @@ function UserProfile() {
   const putUserProfile = async (editedUserData) => {
     try {
       setLoading(true);
-      await axios.put(`blogposts/users/${tokenData.userId}`, editedUserData);
+      await axios.put(`https://webblog-blond.vercel.app/blogposts/users/${tokenData.userId}`, editedUserData);
     } catch (error) {
       console.error("Request Error:", error.message);
     } finally {
@@ -28,7 +28,7 @@ function UserProfile() {
     const handleSaveProfile = async () => {
       if (!tokenData) return;
       try {
-        const response = await axios.get(`blogposts/users/${tokenData.userId}`);
+        const response = await axios.get(`https://webblog-blond.vercel.app/blogposts/users/${tokenData.userId}`);
         setUserData(response.data.user);
       } catch (error) {
         console.error("Request Error:", error.message);
