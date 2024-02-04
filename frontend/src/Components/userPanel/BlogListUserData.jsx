@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { formatMongoDate } from "../UtilFiles/formatDate";
-import { truncateContent } from "../UtilFiles/truncateContent";
+import { TruncateAndParseContent } from "../UtilFiles/truncateContent";
+import { truncateContentBox } from "../UtilFiles/truncateContentBox";
 
 const cookies = new Cookies();
 
@@ -21,11 +22,14 @@ function BlogListUserData() {
     const fetchData = async () => {
       try {
         if (!token) return;
-        const response = await axios.get("https://webblog-blond.vercel.app/blogposts/user/blogs", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "https://webblog-blond.vercel.app/blogposts/user/blogs",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setBlogData(response.data.userBlogs);
       } catch (error) {
         console.error("Error:", error);
@@ -88,7 +92,7 @@ function BlogListUserData() {
               <ul className="flex flex-col justify-center gap-4 p-1 mb-10 shadow-md">
                 <li>
                   <span className="font-bold mr-4">Heading: </span>
-                  {truncateContent(blogInfo.title)}
+                  {truncateContentBox(blogInfo.title)}
                 </li>
                 <li>
                   <span className="font-bold mr-4">Category: </span>
@@ -96,7 +100,10 @@ function BlogListUserData() {
                 </li>
                 <li>
                   <span className="font-bold mr-4">Content: </span>
-                  {truncateContent(blogInfo.content, maxLength)}
+                  <TruncateAndParseContent
+                    content={blogInfo.content}
+                    maxLength={maxLength}
+                  />
                 </li>
                 <li>
                   <span className="font-bold mr-4">Crated At: </span>

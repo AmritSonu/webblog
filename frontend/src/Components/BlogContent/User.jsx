@@ -4,26 +4,23 @@ import axios from "axios";
 export function User() {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [initialLoad, setInitialLoad] = useState(true);
   const { id } = useParams();
   useEffect(() => {
     setIsLoading(true);
     try {
-      axios.get(`https://webblog-blond.vercel.app/blogposts/users/userbyBlogpost/${id}`).then((res) => {
-        setUser(res.data);
-      });
+      axios
+        .get(`https://webblog-blond.vercel.app/blogposts/users/userbyBlogpost/${id}`)
+        .then((res) => {
+          setUser(res.data);
+        });
     } catch (err) {
       console.log("Error While Fetching User from server:", err);
     }
-    if (initialLoad) {
-      setTimeout(() => {
-        setIsLoading(false);
-        setInitialLoad(false);
-      }, 500);
-    } else {
+
+    setTimeout(() => {
       setIsLoading(false);
-    }
-  }, [id, initialLoad]);
+    }, 700);
+  }, [id]);
   return (
     <div className="flex items-center  gap-5 p-1 max-w-md w-6/12 my-5 sMobile:gap-1">
       {isLoading ? (

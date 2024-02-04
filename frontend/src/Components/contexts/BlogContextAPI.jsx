@@ -6,13 +6,10 @@ export const BlogContext = createContext();
 
 export function BlogProvider({ children }) {
   const [blogContent, setBlogContent] = useState([]);
-  axios.defaults.withCredentials = true;
   // fetch data from server ...
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://webblog-blond.vercel.app/blogposts"
-      );
+      const response = await axios.get("https://webblog-blond.vercel.app/blogposts");
       setBlogContent(response.data.blogPosts);
     } catch (error) {
       console.error("Error fetching blog posts:", error);

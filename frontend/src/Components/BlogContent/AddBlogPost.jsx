@@ -1,24 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-
+import JoditEditor from "jodit-react";
 const cookies = new Cookies();
 
 const AddBlogPost = () => {
   const navigate = useNavigate();
   const authToken = cookies.get("TOKEN");
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
   const tokenData = authToken
     ? JSON.parse(atob(authToken.split(".")[1]))
     : null;
 
   const [formData, setFormData] = useState({
     title: "",
-    content: "",
+    content,
     author: tokenData.userId,
     category: "Frontend",
   });
-
+  console.log(formData);
   const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
@@ -26,6 +28,7 @@ const AddBlogPost = () => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      content: name === "content" ? value : prevData.content,
     }));
   };
 
@@ -46,15 +49,11 @@ const AddBlogPost = () => {
         formImageData.append(key, formData[key]);
       });
 
-      await axios.post(
-        "https://webblog-blond.vercel.app/blogposts",
-        formImageData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post("https://web-bee-neon.vercel.app/blogposts", formImageData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -109,7 +108,7 @@ const AddBlogPost = () => {
           >
             Content
           </label>
-          <textarea
+          {/* <textarea
             id="content"
             name="content"
             value={formData.content}
@@ -117,7 +116,16 @@ const AddBlogPost = () => {
             rows="4"
             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             required
-          ></textarea>
+          ></textarea> */}
+
+          <JoditEditor
+            ref={editor}
+            value={formData.content} // Update this line
+            onChange={(newContent) => {
+              setContent(newContent);
+              handleChange({ target: { name: "content", value: newContent } });
+            }}
+          />
         </div>
         <div className="mt-5">
           <label

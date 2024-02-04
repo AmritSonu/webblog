@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../Pagination/Pagination";
+import { TruncateAndParseContent } from "../UtilFiles/truncateContent";
 let PageSize = 10;
+const maxLength = 200;
 export function BlogBox({ blogContent }) {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const navigate = useNavigate();
@@ -36,16 +38,16 @@ export function BlogBox({ blogContent }) {
             <span className="absolute top-0 right-0 bg-mainColor-400 text-white p-1 font-bold  mobile:text-vs">
               {eachblogContent.category}
             </span>
-            <div className="w-10/12 sm:w-6/6 md:w-5/6 lg:w-3/6">
+            <div className="w-10/12 sm:w-6/6 md:w-5/6 lg:w-3/6 bg-gray-100">
               {eachblogContent.imageUrl ? (
                 <img
-                  className="object-cover "
+                  className="object-cover h-60 my-auto mx-auto w-96"
                   src={eachblogContent.imageUrl}
                   alt="blog_pic"
                 />
               ) : (
                 <img
-                  className="object-cover border-xl"
+                  className="object-cover border-xl my-auto mx-auto"
                   src="/No_image.jpg"
                   alt="blog_pic"
                 />
@@ -66,7 +68,10 @@ export function BlogBox({ blogContent }) {
                 </p>
 
                 <p className="text-sm font-light mobile:text-vs">
-                  {truncateContent(eachblogContent.content)}
+                  <TruncateAndParseContent
+                    content={eachblogContent.content}
+                    maxLength={maxLength}
+                  />
                 </p>
               </div>
             </div>
@@ -83,6 +88,7 @@ export function BlogBox({ blogContent }) {
     </div>
   );
 }
+
 // Extract the date Content with readable encoding....
 function formatMongoDBDate(mongoDBDateString) {
   const dateObj = new Date(mongoDBDateString);
@@ -98,13 +104,6 @@ function formatMongoDBDate(mongoDBDateString) {
   const formattedMinutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if minutes < 10
   return `${year}/${month}/${day} : ${formattedHours}:${formattedMinutes} ${period}`;
 }
-
-const truncateContent = (content, maxLength = 150) => {
-  if (content.length > maxLength) {
-    return content.substring(0, maxLength) + "...";
-  }
-  return content;
-};
 
 BlogBox.propTypes = {
   blogContent: PropTypes.array.isRequired,
