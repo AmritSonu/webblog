@@ -49,7 +49,7 @@ const AddBlogPost = () => {
         formImageData.append(key, formData[key]);
       });
 
-      await axios.post(https://webblog-blond.vercel.app/blogposts", formImageData, {
+      await axios.post("https://webblog-blond.vercel.app/blogposts", formImageData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
